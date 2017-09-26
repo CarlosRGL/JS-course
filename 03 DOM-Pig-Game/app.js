@@ -51,9 +51,17 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     scores[activePlayer];
 
   // check if player won the game
+  if (scores[activePlayer] >= 100) {
+    // show text if player won and hide dice
+    document.getElementById("#name-" + activePlayer).textContent = "winner!";
+    document.querySelector(".dice").style.display = "none";
 
-  //next player
-  nexPlayer();
+    // change class of winner panel to see custom css for winner and remove active class
+    document.querySelector(".player-" + activePlayer + "-panel").classList.add('winner');
+    document.querySelector(".player-" + activePlayer + "-panel").classList.remove('active');
+  } else {
+    nexPlayer();
+  }
 });
 
 function nexPlayer() {
