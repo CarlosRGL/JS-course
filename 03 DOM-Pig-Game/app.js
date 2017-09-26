@@ -9,7 +9,7 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, dice;
+var scores, roundScore, activePlayer, dice, gamePlaying;
 
 function init() {
   score = [0, 0];
@@ -28,11 +28,11 @@ function init() {
   document.getElementById("name-0").textContent = "Player 1";
   document.getElementById("name-1").textContent = "Player 2";
 
-document.querySelector(".player-0-panel").classList.remove('winner');
-document.querySelector(".player-1-panel").classList.remove('winner');
-document.querySelector(".player-0-panel").classList.remove('active');
-document.querySelector(".player-1-panel").classList.remove('active');
-document.querySelector(".player-0-panel").classList.add('active');
+  document.querySelector(".player-0-panel").classList.remove('winner');
+  document.querySelector(".player-1-panel").classList.remove('winner');
+  document.querySelector(".player-0-panel").classList.remove('active');
+  document.querySelector(".player-1-panel").classList.remove('active');
+  document.querySelector(".player-0-panel").classList.add('active');
 }
 
 //init the game
@@ -40,48 +40,62 @@ init();
 
 // add event listener to the button to change number when clicking
 document.querySelector(".btn-roll").addEventListener("click", function() {
-  // 1. calculate a number between 1 - 6
-  dice = Math.floor(Math.random() * 6 + 1);
 
-  // 2. calculate result
-  var diceDOM = document.querySelector(".dice");
-  diceDOM.style.display = "block";
-  diceDOM.src = "dice-" + dice + ".png";
+  // check if we can play whit gameplaying function
+  if (gamePlaying) {
+    // 1. calculate a number between 1 - 6
+    dice = Math.floor(Math.random() * 6 + 1);
 
-  // 3. update the score IF the dice was NOT 1
-  if (dice !== 1) {
-    // add score
-    roundScore += dice;
-    document.querySelector(".current-" + activePlayer).textContent = roundScore;
-  } else {
-    nexPlayer();
+    // 2. calculate result
+    var diceDOM = document.querySelector(".dice");
+    diceDOM.style.display = "block";
+    diceDOM.src = "dice-" + dice + ".png";
+
+    // 3. update the score IF the dice was NOT 1
+    if (dice !== 1) {
+      // add score
+      roundScore += dice;
+      document.querySelector(".current-" + activePlayer).textContent = roundScore;
+    } else {
+      nexPlayer();
+    }
   }
+
+
 });
 
 document.querySelector(".btn-hold").addEventListener("click", function() {
-  // Add current score to global score
-  scores[activePlayer] += roundScore;
 
-  // update UI
-  document.querySelector("#score" + activePlayer).textContent =
-    scores[activePlayer];
+  if (gamePlaying) {
+    // Add current score to global score
+    scores[activePlayer] += roundScore;
 
-  // check if player won the game
-  if (scores[activePlayer] >= 100) {
-    // show text if player won and hide dice
-    document.getElementById("#name-" + activePlayer).textContent = "winner!";
-    document.querySelector(".dice").style.display = "none";
+    // update UI
+    document.querySelector("#score" + activePlayer).textContent =
+      scores[activePlayer];
 
-    // change class of winner panel to see custom css for winner and remove active class
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
-  } else {
-    nexPlayer();
+    // check if player won the game
+    if (scores[activePlayer] >= 20) {
+      // show text if player won and hide dice
+      document.getElementById("#name-" + activePlayer).textContent = "winner!";
+      document.querySelector(".dice").style.display = "none";
+
+      // change class of winner panel to see custom css for winner and remove active class
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+
+      //finish game
+      gamePlaying = false;
+
+    } else {
+      nexPlayer();
+    }
   }
+
 });
 
 function nexPlayer() {
