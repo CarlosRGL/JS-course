@@ -24,7 +24,6 @@ document.getElementById("current-1").textContent = "0";
 
 // add event listener to the button to change number when clicking
 document.querySelector(".btn-roll").addEventListener("click", function() {
-
   // 1. calculate a number between 1 - 6
   dice = Math.floor(Math.random() * 6 + 1);
 
@@ -41,35 +40,35 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   } else {
     nexPlayer();
   }
-
 });
 
-document.querySelector('.btn-hold').addEventListener('click', function() {
-
+document.querySelector(".btn-hold").addEventListener("click", function() {
   // Add current score to global score
   scores[activePlayer] += roundScore;
 
   // update UI
-  document.querySelector('#score' + activePlayer).textContent = scores[activePlayer];
+  document.querySelector("#score" + activePlayer).textContent =
+    scores[activePlayer];
 
+  // check if player won the game
 
-  // check if pplayer won the game
-
+  //next player
+  nexPlayer();
 });
 
 function nexPlayer() {
   //next player
-  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
 
   //set current score to 0
   roundScore = 0;
-  document.getElementById('current-0').textContent = '0';
-  document.getElementById('current-1').textContent = '0';
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
 
   //change active class player
-  document.querySelector('.player-0-panel').classList.toogle('active');
-  document.querySelector('.player-1-panel').classList.toogle('active');
+  document.querySelector(".player-0-panel").classList.toogle("active");
+  document.querySelector(".player-1-panel").classList.toogle("active");
 
   // Hide dice when next player turn
-  document.querySelector('.dice').style.display = 'none';
+  document.querySelector(".dice").style.display = "none";
 }
