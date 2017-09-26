@@ -11,16 +11,32 @@ GAME RULES:
 
 var scores, roundScore, activePlayer, dice;
 
-score = [0, 0];
-roundScore = 0;
-activePlayer = 0;
+function init() {
+  score = [0, 0];
+  roundScore = 0;
+  activePlayer = 0;
 
-// hide dice from view at the start of the application and scores sets to 0
-document.querySelector(".dice").style.display = "none";
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
+  // hide dice from view at the start of the application and scores sets to 0
+  document.querySelector(".dice").style.display = "none";
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+
+document.querySelector(".player-0-panel").classList.remove('winner');
+document.querySelector(".player-1-panel").classList.remove('winner');
+document.querySelector(".player-0-panel").classList.remove('active');
+document.querySelector(".player-1-panel").classList.remove('active');
+document.querySelector(".player-0-panel").classList.add('active');
+}
+
+//init the game
+init();
 
 // add event listener to the button to change number when clicking
 document.querySelector(".btn-roll").addEventListener("click", function() {
@@ -57,8 +73,12 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
     document.querySelector(".dice").style.display = "none";
 
     // change class of winner panel to see custom css for winner and remove active class
-    document.querySelector(".player-" + activePlayer + "-panel").classList.add('winner');
-    document.querySelector(".player-" + activePlayer + "-panel").classList.remove('active');
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.remove("active");
   } else {
     nexPlayer();
   }
@@ -80,3 +100,6 @@ function nexPlayer() {
   // Hide dice when next player turn
   document.querySelector(".dice").style.display = "none";
 }
+
+// reload game with init function when clicking new game button
+document.querySelector(".btn-new").addEventListener("click", init);
