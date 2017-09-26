@@ -59,6 +59,7 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
         "#current-" + activePlayer
       ).textContent = roundScore;
     } else {
+      alert('you sort a 1!!! next player turn');
       nexPlayer();
     }
   }
