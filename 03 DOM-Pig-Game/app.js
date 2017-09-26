@@ -53,5 +53,16 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
 
     // Hide dice when next player turn
     document.querySelector('.dice').style.display = 'none';
-}
+  }
 });
+
+document.querySelector('.btn-hold').addEventListener('click', function() {
+
+  // Add current score to global score
+
+
+  // update UI
+
+
+  // check if pplayer won the game
+})
