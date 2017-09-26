@@ -41,6 +41,17 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   } else {
     //next player
     activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+
+    //set current score to 0
     roundScore = 0;
-  }
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    //change active class player
+    document.querySelector('.player-0-panel').classList.toogle('active');
+    document.querySelector('.player-1-panel').classList.toogle('active');
+
+    // Hide dice when next player turn
+    document.querySelector('.dice').style.display = 'none';
+}
 });
