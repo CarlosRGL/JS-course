@@ -44,6 +44,7 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   // check if we can play whit gameplaying function
   if (gamePlaying) {
     // 1. calculate a number between 1 - 6
+    var lastDice = dice;
     dice = Math.floor(Math.random() * 6 + 1);
 
     // 2. calculate result
@@ -58,10 +59,18 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
       document.querySelector(
         "#current-" + activePlayer
       ).textContent = roundScore;
+    } else if (dice === 6 && lastDice === 6) {
+      // Challege 1 : two 6 in a row lost all points
+      alert("you sort a 6!!! next player turn");
+      scores[activePlayer] = 0;
+      document.getElementById("score-" + activePlayer).textContent = "0";
+      nexPlayer();
     } else {
-      alert('you sort a 1!!! next player turn');
+      alert("you sort a 1!!! next player turn");
       nexPlayer();
     }
+    console.log(lastDice + " lastDice");
+    console.log(dice + " Dice");
   }
 });
 
