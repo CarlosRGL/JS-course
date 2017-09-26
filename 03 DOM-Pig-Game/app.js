@@ -9,13 +9,17 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, dice, gamePlaying;
+var scores, roundScore, activePlayer, dice, gamePlaying, finalScore;
 
 function init() {
   scores = [0, 0];
   roundScore = 0;
   activePlayer = 0;
   gamePlaying = true;
+
+  // 2 challenge set score with prompt
+  finalScore = parseInt(prompt("set a score to play"));
+  console.log(finalScore);
 
   // hide dice from view at the start of the application and scores sets to 0
   document.querySelector(".dice").style.display = "none";
@@ -85,7 +89,7 @@ document.querySelector(".btn-hold").addEventListener("click", function() {
       scores[activePlayer];
 
     // check if player won the game
-    if (scores[activePlayer] >= 20) {
+    if (scores[activePlayer] >= finalScore) {
       // show text if player won and hide dice
       document.getElementById("name-" + activePlayer).textContent = "winner!";
       document.querySelector(".dice").style.display = "none";
